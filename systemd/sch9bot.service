@@ -1,0 +1,38 @@
+[Unit]
+Description=Project 9 Grade Telegram Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Тип
+Type=simple
+
+# Рабочая директория проекта
+WorkingDirectory=/root/schoolbot
+
+# Команда запуска (внутри venv)
+ExecStart=/root/schoolbot/venv/bin/python /root/schoolbot/bot.py
+
+# Перезапуск при сбое
+Restart=on-failure
+RestartSec=5s
+
+# Кто владелец процесса (рекомендуется не root)
+User=root
+Group=root
+
+# Переменные окружения (.env можно явно указать)
+Environment="PYTHONUNBUFFERED=1"
+Environment="PYTHONPATH=/root/schoolbot"
+
+# Логи (journalctl)
+StandardOutput=journal
+StandardError=journal
+
+# Ограничение ресурсов (опционально)
+# MemoryLimit=200M
+# CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target
+
